@@ -1,0 +1,37 @@
+{
+  "version": "1.0.0",
+  "name": "magic-button-wrapper",
+  "description": "A React component that wraps UI elements to automatically handle click event load states.",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite --config demo/vite.config.ts",
+    "build": "vite build --config demo/vite.config.ts",
+    "start": "vite preview --config demo/vite.config.ts",
+    "build-magic": "tsup index.ts --dts --format esm,cjs --clean"
+  },
+"peerDependencies": {
+  "react": ">=17.0.0 <26.0.0",      
+  "react-dom": ">=17.0.0 <26.0.0",
+  "lucide-react": "^0.310.0 || ^0.360.0"  
+},
+"peerDependenciesMeta": {
+  "react-dom": { "optional": true }      
+},
+  "packageManager": "pnpm@9.14.2+sha1.5202b50ab92394b3c922d2e293f196e2df6d441b",
+  "devDependencies": {
+    "@types/node": "^24.0.3",
+    "@types/react": "^19.1.8",
+    "react": "^19.1.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3"
+  }
+}
