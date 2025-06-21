@@ -1,24 +1,22 @@
 /* ----------------------------------------------------------------------
-   Demo page for magic-button-wrapper
+   Demo page for magic-button-wrapper (confetti now reliable)
    ----------------------------------------------------------------------*/
-import React from "react";
+import React, { useRef } from "react";
 import ReactDOM from "react-dom/client";
 import { MagicButtonWrapper } from "../../dist/index";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import './index.css'
+import "./index.css";
 
 /* ------------------------------------------------------------------
-   Small helper used in Example 4 (confetti pop after success)
+   Helper – launch confetti at viewport‑relative coords (0‑1)
    ------------------------------------------------------------------*/
-async function fireConfetti() {
-  // Dynamically import so that demo compiles even if canvas-confetti
-  // is not installed by the consumer copying snippets.
+async function launchConfetti(x: number, y: number) {
   const { default: confetti } = await import("canvas-confetti");
-  confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+  confetti({ particleCount: 100, spread: 70, origin: { x, y } });
 }
 
 /* ------------------------------------------------------------------
-   Re-usable UI wrapper for every example
+   Re‑usable UI wrapper for every example
    ------------------------------------------------------------------*/
 interface ExampleProps {
   title: string;
@@ -28,14 +26,52 @@ interface ExampleProps {
 function ExampleCard({ title, desc, children }: ExampleProps) {
   return (
     <Card className="w-full max-w-md border border-muted-foreground/20">
-      <CardHeader>
+      <CardHeader style={{height:'4rem'}}>
         <CardTitle className="text-lg font-semibold">{title}</CardTitle>
         <p className="text-sm text-muted-foreground leading-snug mt-1">{desc}</p>
       </CardHeader>
-      <CardContent className="flex items-center justify-center py-6">
+      {/* fixed height so every button lines up */}
+      <CardContent className="flex items-center justify-center py-6 h-28">
         {children}
       </CardContent>
     </Card>
+  );
+}
+
+/* ------------------------------------------------------------------
+   Example 4 – record click position & fire confetti there
+   ------------------------------------------------------------------*/
+function ConfettiExample() {
+  // store the most recent pointer position so we don’t rely on a ref from MagicButtonWrapper
+  const lastPos = useRef<{ x: number; y: number } | null>(null);
+
+  const handleSuccess = (reset: () => void) => {
+    const { x, y } =
+      lastPos.current ?? { x: window.innerWidth / 2, y: window.innerHeight * 0.6 };
+    launchConfetti(x / window.innerWidth, y / window.innerHeight);
+    setTimeout(reset, 1800);
+  };
+
+  return (
+    <ExampleCard
+      title="4. Success effect"
+      desc="Fire confetti exactly where the user clicked, wait 2 s, then auto‑reset."
+    >
+      <MagicButtonWrapper
+        resetDelay={2000}
+        onClickFn={() => new Promise(r => setTimeout(r, 700))}
+        onSuccessEffect={handleSuccess}
+      >
+        <button
+          onPointerDown={e => {
+            lastPos.current = { x: e.clientX, y: e.clientY };
+          }}
+          className="px-4 py-2 rounded-lg bg-fuchsia-600 text-white font-medium shadow-sm hover:bg-fuchsia-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-fuchsia-500"
+        >
+          Celebrate
+        </button>
+      </MagicButtonWrapper>
+    </ExampleCard>
   );
 }
 
@@ -72,7 +108,7 @@ function Demo() {
           desc="Override the icon color to match brand palette."
         >
           <MagicButtonWrapper
-            iconColorOverride="#6EE7B7" 
+            iconColorOverride="#6EE7B7"
             onClickFn={() => new Promise(r => setTimeout(r, 600))}
           >
             <button className="px-4 py-2 rounded-lg bg-emerald-600 text-white font-medium shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">
@@ -84,7 +120,7 @@ function Demo() {
         {/* Example 3 --------------------------------------------------- */}
         <ExampleCard
           title="3. Custom icon size"
-          desc="Large CTA with 40-px animated icons."
+          desc="Large CTA with 40‑px animated icons."
         >
           <MagicButtonWrapper
             iconSizeOverride={40}
@@ -97,24 +133,7 @@ function Demo() {
         </ExampleCard>
 
         {/* Example 4 --------------------------------------------------- */}
-        <ExampleCard
-          title="4. Success effect"
-          desc="Fire confetti after check-mark, wait 2 s, then auto-reset."
-        >
-          <MagicButtonWrapper
-            resetDelay={2000}
-            onClickFn={() => new Promise(r => setTimeout(r, 700))}
-            onSuccessEffect={(reset) => {
-              fireConfetti();
-              // leave the success state on screen a bit longer
-              setTimeout(reset, 1800);
-            }}
-          >
-            <button className="px-4 py-2 rounded-lg bg-fuchsia-600 text-white font-medium shadow-sm hover:bg-fuchsia-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-fuchsia-500">
-              Celebrate
-            </button>
-          </MagicButtonWrapper>
-        </ExampleCard>
+        <ConfettiExample />
 
         {/* Example 5 --------------------------------------------------- */}
         <ExampleCard
@@ -134,9 +153,7 @@ function Demo() {
         </ExampleCard>
       </section>
 
-      <footer className="pt-12 text-center text-xs text-muted-foreground">
-        
-      </footer>
+      <footer className="pt-12 text-center text-xs text-muted-foreground" />
     </div>
   );
 }
