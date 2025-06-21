@@ -2,6 +2,11 @@
   "version": "1.0.0",
   "name": "magic-button-wrapper",
   "description": "A React component that wraps UI elements to automatically handle click event load states.",
+  "keywords": 	["react","button","loader","spinner","success","error","ui","magic-button"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chrono-time/magic-button-wrapper.git"
+  },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -19,9 +24,9 @@
     "build-magic": "tsup index.ts --dts --format esm,cjs --clean"
   },
 "peerDependencies": {
-  "react": ">=17.0.0 <26.0.0",      
-  "react-dom": ">=17.0.0 <26.0.0",
-  "lucide-react": "^0.310.0 || ^0.360.0"  
+  "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0",
+     "lucide-react": ">=0.310.0 <1.0.0"
 },
 "peerDependenciesMeta": {
   "react-dom": { "optional": true }      
