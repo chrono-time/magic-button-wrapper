@@ -1,6 +1,6 @@
 # magic-button-wrapper
 
-Tiny, framework‑agnostic React wrapper that swaps your button’s content for a **loading ▸ success ▸ error** icon using nothing but inline styles and three keyframe animations. No CSS files, no context providers, no emotion/styled‑components – just drop it in and ship.
+Tiny, React wrapper that swaps your button’s content for a **loading ▸ success ▸ error** icon using nothing but inline styles and three keyframe animations. No CSS files, no context providers, no emotion/styled‑components – just drop it in and ship.
 
 ---
 
@@ -32,8 +32,6 @@ export default function Demo() {
   );
 }
 ```
-
-🟢 **Idle** → 🟡 **Loading** (spinner) → 🟢 **Success** (check‑mark) → back to idle after 1.5 s.
 
 ---
 
@@ -68,10 +66,10 @@ export default function Demo() {
 </MagicButtonWrapper>
 ```
 
-### 3 · Larger icon, no auto‑reset
+### 3 · Larger icon
 
 ```tsx
-<MagicButtonWrapper iconSizeOverride={24} resetDelay={null} onClickFn={upload}>
+<MagicButtonWrapper iconSizeOverride={24} onClickFn={upload}>
   <button className="cta-xl">Upload file</button>
 </MagicButtonWrapper>
 ```
