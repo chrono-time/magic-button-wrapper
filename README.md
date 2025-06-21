@@ -7,12 +7,10 @@ Tiny, framework‑agnostic React wrapper that swaps your button’s content for 
 ## Installation
 
 ```bash
-npm install magic-button-wrapper lucide-react
+npm install magic-button-wrapper
 # or
-pnpm add magic-button-wrapper lucide-react
+pnpm add magic-button-wrapper
 ```
-
-> **Peer requirements** ‑ React 17 or newer (<22).
 
 ---
 
