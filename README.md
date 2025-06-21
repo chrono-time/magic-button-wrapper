@@ -14,6 +14,9 @@ pnpm add magic-button-wrapper
 
 ---
 
+## Demo
+Visit https://sparkling-empanada-44b925.netlify.app/ to see some buttons in action!
+
 ## Quick start
 
 ```tsx
@@ -73,12 +76,6 @@ export default function Demo() {
 </MagicButtonWrapper>
 ```
 
-When you’re ready to clear the state:
-
-```ts
-// inside onSuccessEffect or elsewhere via ref
-reset();
-```
 
 ### 4 · Success confetti
 
@@ -90,6 +87,7 @@ import confetti from "canvas-confetti";
   onClickFn={() => fetch("/api/pay")}
   onSuccessEffect={reset => {
     confetti();
+    //Calling reset() will remove the success state
     setTimeout(reset, 1800);
   }}
 >
@@ -109,17 +107,6 @@ import confetti from "canvas-confetti";
   <button className="btn-danger">Trigger error</button>
 </MagicButtonWrapper>
 ```
-
----
-
-
-## Troubleshooting
-
-| Symptom                               | Fix                                                                                           |
-| ------------------------------------- | --------------------------------------------------------------------------------------------- |
-| *"Wrapper expects exactly ONE child"* | Ensure you pass **one** element (no fragments).                                               |
-| Icons are tiny / huge                 | Pass `iconSizeOverride` or adjust button padding so auto‑size logic picks up the desired box. |
-| State never resets                    | Check that you didn’t set `resetDelay={null}` without manually calling `reset()`.             |
 
 ---
 
