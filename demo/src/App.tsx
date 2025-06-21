@@ -8,7 +8,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import "./index.css";
 
 /* ------------------------------------------------------------------
-   Helper – launch confetti at viewport‑relative coords (0‑1)
+   Helper – launch confetti at viewport-relative coords (0-1)
    ------------------------------------------------------------------*/
 async function launchConfetti(x: number, y: number) {
   const { default: confetti } = await import("canvas-confetti");
@@ -16,7 +16,7 @@ async function launchConfetti(x: number, y: number) {
 }
 
 /* ------------------------------------------------------------------
-   Re‑usable UI wrapper for every example
+   Re-usable UI wrapper for every example
    ------------------------------------------------------------------*/
 interface ExampleProps {
   title: string;
@@ -55,7 +55,7 @@ function ConfettiExample() {
   return (
     <ExampleCard
       title="4. Success effect"
-      desc="Fire confetti exactly where the user clicked, wait 2 s, then auto‑reset."
+      desc="Fire confetti exactly where the user clicked, wait 2s, then auto-reset."
     >
       <MagicButtonWrapper
         resetDelay={2000}
@@ -85,7 +85,7 @@ function Demo() {
         <h1 className="text-4xl font-bold tracking-tight">magic-button-wrapper • Live Demo</h1>
         <p className="text-base text-muted-foreground">
           Tiny React wrapper that swaps your button content with an animated icon
-          for <em>loading ▸ success ▸ error</em>—all in pure CSS.
+          for <em>loading ▸ success ▸ error</em> all in pure CSS.
         </p>
       </header>
 
@@ -120,7 +120,7 @@ function Demo() {
         {/* Example 3 --------------------------------------------------- */}
         <ExampleCard
           title="3. Custom icon size"
-          desc="Large CTA with 40‑px animated icons."
+          desc="Large CTA with 40-px animated icons."
         >
           <MagicButtonWrapper
             iconSizeOverride={40}
