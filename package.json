@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "magic-button-wrapper",
   "description": "A React component that wraps UI elements to automatically handle click event load states.",
   "keywords": 	["react","button","loader","spinner","success","error","ui","magic-button"],
@@ -18,7 +18,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup index.ts --dts --format esm,cjs --clean"
+    "build": "tsup src/index.ts --dts --format esm,cjs"
   },
 "peerDependencies": {
   "react": "^17.0.0 || ^18.0.0 || ^19.0.0",

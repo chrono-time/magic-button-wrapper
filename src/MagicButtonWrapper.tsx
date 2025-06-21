@@ -3,10 +3,12 @@ import React, {
   cloneElement,
   useCallback,
   useRef,
-  useState,
-  ReactElement,
-  MouseEvent,
+  useState
 } from "react";
+
+import type { ReactElement } from 'react';
+import type { MouseEvent as ReactMouseEvent } from 'react';
+
 import { Loader2, Check, X } from "lucide-react";
 
 /* ------------------------------------------------------------------
@@ -110,7 +112,7 @@ export interface MagicButtonWrapperProps {
   /** Must be exactly one interactive element (e.g., <button>) */
   children: ReactElement;
   /** Called when the user clicks. Throw to trigger error state. */
-  onClickFn?: (e: MouseEvent<HTMLElement>) => unknown | Promise<unknown>;
+  onClickFn?: (e: ReactMouseEvent<HTMLElement>) => unknown | Promise<unknown>;
   /** Fires after success icon but before reset. */
   onSuccessEffect?: (reset: () => void) => void;
   iconColorOverride?: string | null;
@@ -153,7 +155,7 @@ export default function MagicButtonWrapper({
      Click handler – ignore synthetic clicks to stop the loop
      ------------------------------------------------------------------*/
   const handleClick = useCallback(
-    (e: MouseEvent<HTMLElement>) => {
+    (e: ReactMouseEvent<HTMLElement>) => {
       if (!e.isTrusted) return; // ignore programmatic clicks
       if (status === "loading") return;
 
